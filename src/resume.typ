@@ -21,6 +21,7 @@
   telegram-username: "",
   github-username: "",
   lang: "ru",
+  months-full: false,
   body
 ) = {
   set document(
@@ -41,6 +42,8 @@
   set text(
     font: font, size: font-size, lang: lang, ligatures: false
   )
+
+
 
   show heading.where(
     level: 1
@@ -134,35 +137,65 @@
   }
 }
 
+#let months-names = (
+    "Январь",
+    "Февраль",
+    "Март",
+    "Апрель",
+    "Май",
+    "Июнь",
+    "Июль",
+    "Август",
+    "Сентябрь",
+    "Октябрь",
+    "Ноябрь",
+    "Декабрь"
+)
+
+#let date-format(date, full) = {
+  assert.eq(type(date), datetime)
+  assert.eq(type(full), bool)
+
+  return [
+    #if full {
+      months-names.at(date.month())
+    } else {
+      months-names.at(date.month()).codepoints().slice(0, count: 3).join()
+    } #date.year()
+  ]
+}
+
 // Converts datetime format into readable period.
-#let period_worked(start-date, end-date) = {
+#let period_worked(start-date, end-date, full) = {
   // sanity checks
   assert.eq(type(start-date), datetime)
   assert(type(end-date) == datetime or type(end-date) == str)
 
-
-
   context {
     return [
-        #custom-date-format(start-date, pattern: "MMM yyyy", lang: text.lang) --
-        #if (type(end-date) == str) [
+        #if (type(start-date) == str) {
+          start-date
+        } else [
+          #date-format(start-date, full)
+        ] --
+        #if (type(end-date) == str) {
           end-date
-        ] else [
-          #custom-date-format(end-date, pattern: "MMM yyyy", lang: text.lang)
+        } else [
+          #date-format(end-date, full)
         ]
     ]
   }
 }
 
 // Pretty self-explanatory.
-#let work-heading(title, company, location, start-date, end-date, body) = {
+#let work-heading(title, company, location, start-date, end-date, months-full: false, body) = {
   // sanity checks
   assert.eq(type(start-date), datetime)
   assert(type(end-date) == datetime or type(end-date) == str)
 
   generic_2x2(
     (1fr, 1fr),
-    [*#title*], [*#period_worked(start-date, end-date)*],
+    [*#title*], [*#period_worked(start-date, end-date, months-full)*],
     [#company], emph(location)
   )
   v(-0.2em)
@@ -195,7 +228,7 @@
 }
 
 // Pretty self-explanatory.
-#let education-heading(institution, location, degree, major, start-date, end-date, body) = {
+#let education-heading(institution, location, degree, major, start-date, end-date, months-full: false, body) = {
   // sanity checks
   assert.eq(type(start-date), datetime)
   assert(type(end-date) == datetime or type(end-date) == str)
@@ -203,7 +236,7 @@
   generic_2x2(
     (70%, 30%),
     [*#institution*], [*#location*],
-    [#degree, #major], period_worked(start-date, end-date)
+    [#degree, #major], period_worked(start-date, end-date, months-full)
   )
   v(-0.2em)
   if body != [] {

@@ -1,17 +1,15 @@
 #import "/src/lib.typ": *
 
-#let name = "Dwight Schrute"
+#let name = "Василий Пупкин"
 #let phone = "+1 (123) 456-7890"
-#let email = "dschrute@dundermifflin.com"
-#let github = "dwight-schrute"
-#let linkedin = "dwight-schrute"
-#let personal-site = "dwightschrute.com"
+#let email = "vpupkin@mail.ru"
+#let github = "vpupkin"
+#let linkedin = "vpupkin"
+#let personal-site = "vpupkin.com"
 
 #show: resume.with(
-  top-margin: 0.4in,
-  font: "Libertinus Serif",
-  font-size: 11.5pt,
-  personal-info-font-size: 9.9pt,
+  top-margin: 0.45in,
+  personal-info-font-size: 9.2pt,
   author-position: center,
   personal-info-position: center,
   author-name: name,
@@ -33,7 +31,7 @@
   ]
 ]
 
-#custom-title("Experience")[  
+#custom-title("Experience")[
   #work-heading(
     "Regional Manager",
     "Dunder Mifflin",

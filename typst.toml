@@ -1,14 +1,14 @@
 # for a description of available keys, see https://github.com/typst/packages/?tab=readme-ov-file#package-format
 
 [package]
-name = "simple-technical-resume"
+name = "ru-simple-technical-resume"
 version = "0.1.1"
 entrypoint = "src/lib.typ"
-authors = ["Himank Dave <https://steadyfall.github.io/>"]
+authors = ["Himank Dave <https://steadyfall.github.io/>", "Sergei Makhinov <https://sermah.dev/>"]
 license = "MIT"
-description = "A simple technical resume designed to fit within a page and work well with ATS."
-repository = "https://github.com/steadyfall/simple-technical-resume-template"
-keywords = ["cv", "resume", "technical", "ATS"]
+description = "A russian fork of simple-technical-resume. A simple technical resume designed to fit within a page and work well with ATS."
+repository = "https://github.com/sermah/ru-simple-technical-resume-template"
+keywords = ["cv", "resume", "technical", "ATS", "russian", "ru"]
 categories = ["cv"]
 exclude = [
   ".github",
@@ -25,4 +25,3 @@ exclude = [
 path = "template"
 entrypoint = "main.typ"
 thumbnail = "thumbnail.png"
-

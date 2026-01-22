@@ -9,7 +9,7 @@
   font: "New Computer Modern",
   font-size: 11pt,
   personal-info-font-size: 10.5pt,
-  document-title-prefix: "Résumé",
+  document-title-prefix: "Резюме",
   author-name: "",
   author-position: center,
   personal-info-position: center,
@@ -18,8 +18,9 @@
   email: "",
   website: "",
   linkedin-user-id: "",
+  telegram-username: "",
   github-username: "",
-  lang: "en",
+  lang: "ru",
   body
 ) = {
   set document(
@@ -66,7 +67,7 @@
     #v(-2em)
   ])
 
-  align(personal-info-position, text(personal-info-font-size)[    
+  align(personal-info-position, text(personal-info-font-size)[
     #{
       let sepSpace = 0.2em
       let items = (
@@ -74,6 +75,7 @@
         contact_item(location),
         contact_item(email, link-type: "mailto:"),
         contact_item(website, link-type: "https://"),
+        contact_item(telegram-username, link-type: "https://t.me/", prefix: "t.me/"),
         contact_item(linkedin-user-id, link-type: "https://linkedin.com/in/", prefix: "linkedin.com/in/"),
         contact_item(github-username, link-type: "https://github.com/", prefix: "github.com/"),
       )
@@ -138,18 +140,13 @@
   assert.eq(type(start-date), datetime)
   assert(type(end-date) == datetime or type(end-date) == str)
 
-  if type(end-date) == str and end-date == "Present" {
-    end-date = datetime.today()
-  }
+
 
   context {
     return [
-        #custom-date-format(start-date, pattern: "MMM yyyy", lang: text.lang) -- 
-        #if (
-          (end-date.month() == datetime.today().month()) and 
-          (end-date.year() == datetime.today().year())
-        ) [
-          Present // Needs to be translated
+        #custom-date-format(start-date, pattern: "MMM yyyy", lang: text.lang) --
+        #if (type(end-date) == str) [
+          end-date
         ] else [
           #custom-date-format(end-date, pattern: "MMM yyyy", lang: text.lang)
         ]
@@ -165,7 +162,7 @@
 
   generic_2x2(
     (1fr, 1fr),
-    [*#title*], [*#period_worked(start-date, end-date)*], 
+    [*#title*], [*#period_worked(start-date, end-date)*],
     [#company], emph(location)
   )
   v(-0.2em)
@@ -180,7 +177,7 @@
 // Pretty self-explanatory.
 #let project-heading(name, stack: "", project-url: "", body) = {
   if project-url.len() != 0 { link(project-url)[*#name*] } else {
-    [*#name*] 
+    [*#name*]
   }
   if stack != "" {
     [
@@ -205,7 +202,7 @@
 
   generic_2x2(
     (70%, 30%),
-    [*#institution*], [*#location*], 
+    [*#institution*], [*#location*],
     [#degree, #major], period_worked(start-date, end-date)
   )
   v(-0.2em)

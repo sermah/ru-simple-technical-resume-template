@@ -1,11 +1,11 @@
 #import "@preview/simple-technical-resume:0.1.1": *
 
-#let name = "Dwight Schrute"
+#let name = "Василий Пупкин"
 #let phone = "+1 (123) 456-7890"
-#let email = "dschrute@dundermifflin.com"
-#let github = "dwight-schrute"
-#let linkedin = "dwight-schrute"
-#let personal-site = "dwightschrute.com"
+#let email = "vpupkin@mail.ru"
+#let github = "vpupkin"
+#let linkedin = "vpupkin"
+#let personal-site = "vpupkin.com"
 
 #show: resume.with(
   top-margin: 0.45in,
@@ -31,7 +31,7 @@
   ]
 ]
 
-#custom-title("Experience")[  
+#custom-title("Experience")[
   #work-heading(
     "Regional Manager",
     "Dunder Mifflin",
